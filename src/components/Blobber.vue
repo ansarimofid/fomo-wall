@@ -5,14 +5,18 @@
       :style="containerStyle"
     >
       <blob
-        :blob="blob"
         :gradient="gradient"
         :gradientId="gradientId"
         :key="i"
         v-for="i in count"
       />
 
-      <div :key="i+getRandomInt(13232,22333)" v-for="i in 4" class="absolute z-10" :style="getCircleStyle()">
+      <div
+        :key="i + getRandomInt(13232, 22333)"
+        v-for="i in 4"
+        class="absolute z-10"
+        :style="getCircleStyle()"
+      >
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <circle fill="white" cx="50" cy="50" r="50" />
         </svg>
@@ -29,18 +33,11 @@ import gradients from "../util/gradients";
 
 export default {
   name: "blobber",
-  props: {
-    defaultBlob: Object,
-  },
   components: {
     Blob,
   },
   data() {
     return {
-      blob:{
-        ...this.defaultBlob,
-
-      },
       gradient: gradients[getRandomInt(0, gradients.length)],
       count: 15,
       gradientId: getRandomInt(100000, 500000),
@@ -54,30 +51,32 @@ export default {
   computed: {
     containerStyle: function () {
       return {
-        background: `linear-gradient(45deg, ${this.gradient[0]}, ${this.gradient[1]})`,
+        background: `linear-gradient(${this.getRandomInt(0, 360)}deg, ${
+          this.gradient[0]
+        }, ${this.gradient[1]})`,
       };
     },
   },
 
   methods: {
-    getCircleStyle:function(){
+    getCircleStyle: function () {
       let circleSize = getRandomInt(5, 50);
       return {
         left: getRandomInt(-20, 100) + "%",
         top: getRandomInt(-20, 100) + "%",
         transform: `rotateZ(${getRandomInt(0, 360)}deg)`,
-        width:`${circleSize}px`,
-        height:`${circleSize}px`,
-      }
+        width: `${circleSize}px`,
+        height: `${circleSize}px`,
+      };
     },
-    getRandomInt
+    getRandomInt,
   },
 };
 </script>
 
 <style scoped>
 .blob-canvas {
-  width: 350px;
-  height: 450px;
+  width: 700px;
+  height: 900px;
 }
 </style>

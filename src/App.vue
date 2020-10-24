@@ -1,53 +1,19 @@
 <template>
   <div id="app">
-    <div class="control mb-10">
-      <button class="bg-primary px-4 py-2 text-white" @click="changeBlob">Change Blob</button>
-      <div class="mt-10">
-        <div>Growth</div>
-        <input
-          @change="changeBlob"
-          v-model="defaultBlob.growth"
-          type="range"
-          min="2"
-          max="9"
-          value="7"
-          class="slider mr-4"
-          id="growth-range"
-        />
-      </div>
-
-      <div class="mt-4">
-        <div>Edges</div>
-        <input
-          @change="changeBlob"
-          v-model="defaultBlob.edges"
-          type="range"
-          min="3"
-          max="20"
-          value="6"
-          class="slider"
-          id="edge-range"
-        />
-      </div>
-
-      <div class="mt-6">
-        <input
-          @change="changeBlob"
-          class="border border-gray-12 px-4 py-2"
-          type="number"
-          v-model="defaultBlob.edges"
-        />
-      </div>
+    <div class="mb-10">
+      <h1 class="text-4xl font-bold">F.O.M.O Wall</h1>
     </div>
-
-    <div class="flex flex-wrap justify-center items-start mx-auto">
-        <blobber :defaultBlob="defaultBlob" :key="i" v-for="i in blobberCount" />
-      </div>
+    <div
+      v-infinite-scroll="loadMore"
+      infinite-scroll-distance="500"
+      class="flex flex-wrap justify-center items-start mx-auto"
+    >
+      <blobber :key="i" v-for="i in blobberCount" />
+    </div>
   </div>
 </template>
 
 <script>
-
 import { generator } from "./util/generator";
 import Blobber from "./components/Blobber";
 
@@ -68,19 +34,16 @@ export default {
   },
   data() {
     return {
-      defaultBlob: {
-        edges: 6,
-        growth: 7,
-        size: 500,
-        path: "",
-        id: "",
-      },
-      blobberCount:10
-    }
+      blobberCount: 24,
+      busy: false,
+    };
   },
   methods: {
     changeBlob,
-  }
+    loadMore: function () {
+      this.blobberCount += 12;
+    },
+  },
 };
 </script>
 
