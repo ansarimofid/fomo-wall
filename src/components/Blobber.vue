@@ -30,13 +30,17 @@ import gradients from "../util/gradients";
 export default {
   name: "blobber",
   props: {
-    blob: Object,
+    defaultBlob: Object,
   },
   components: {
     Blob,
   },
   data() {
     return {
+      blob:{
+        ...this.defaultBlob,
+
+      },
       gradient: gradients[getRandomInt(0, gradients.length)],
       count: 15,
       gradientId: getRandomInt(100000, 500000),
@@ -57,9 +61,7 @@ export default {
 
   methods: {
     getCircleStyle:function(){
-      let circleSize = getRandomInt(15, 100);
-
-      console.log(circleSize);
+      let circleSize = getRandomInt(5, 50);
       return {
         left: getRandomInt(-20, 100) + "%",
         top: getRandomInt(-20, 100) + "%",
@@ -75,7 +77,7 @@ export default {
 
 <style scoped>
 .blob-canvas {
-  width: 700px;
-  height: 900px;
+  width: 350px;
+  height: 450px;
 }
 </style>

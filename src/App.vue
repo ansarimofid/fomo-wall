@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <div class="control">
-      <button class="bg-primary px-4 py-2 text-white">Change Blob</button>
+    <div class="control mb-10">
+      <button class="bg-primary px-4 py-2 text-white" @click="changeBlob">Change Blob</button>
       <div class="mt-10">
         <div>Growth</div>
         <input
           @change="changeBlob"
-          v-model="blob.growth"
+          v-model="defaultBlob.growth"
           type="range"
           min="2"
           max="9"
@@ -20,7 +20,7 @@
         <div>Edges</div>
         <input
           @change="changeBlob"
-          v-model="blob.edges"
+          v-model="defaultBlob.edges"
           type="range"
           min="3"
           max="20"
@@ -35,13 +35,13 @@
           @change="changeBlob"
           class="border border-gray-12 px-4 py-2"
           type="number"
-          v-model="blob.edges"
+          v-model="defaultBlob.edges"
         />
       </div>
     </div>
 
     <div class="flex flex-wrap justify-center items-start mx-auto">
-        <blobber :blob="blob" :key="i" v-for="i in 10" />
+        <blobber :defaultBlob="defaultBlob" :key="i" v-for="i in blobberCount" />
       </div>
   </div>
 </template>
@@ -53,12 +53,12 @@ import Blobber from "./components/Blobber";
 
 const changeBlob = function () {
   const { path, id } = generator({
-    edges: this.blob.edges,
-    growth: this.blob.growth,
-    size: this.blob.size,
+    edges: this.defaultBlob.edges,
+    growth: this.defaultBlob.growth,
+    size: this.defaultBlob.size,
   });
-  this.blob.path = path;
-  this.blob.id = id;
+  this.defaultBlob.path = path;
+  this.defaultBlob.id = id;
 };
 
 export default {
@@ -68,13 +68,14 @@ export default {
   },
   data() {
     return {
-      blob: {
+      defaultBlob: {
         edges: 6,
         growth: 7,
         size: 500,
         path: "",
         id: "",
-      }
+      },
+      blobberCount:10
     }
   },
   methods: {
