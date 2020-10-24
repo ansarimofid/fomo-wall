@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-6 mb-8">
+  <div class="pl-4 mb-2 sm:mb-4">
     <div
       class="w-72 h-72 bg-gray-245 blob-canvas mx-auto relative overflow-hidden"
       :style="containerStyle"
@@ -60,13 +60,13 @@ export default {
 
   methods: {
     getCircleStyle: function () {
-      let circleSize = getRandomInt(5, 50);
+      let circleSize = getRandomInt(2, 10);
       return {
         left: getRandomInt(-20, 100) + "%",
         top: getRandomInt(-20, 100) + "%",
         transform: `rotateZ(${getRandomInt(0, 360)}deg)`,
-        width: `${circleSize}px`,
-        height: `${circleSize}px`,
+        width: `${circleSize}%`,
+        height: `${circleSize}%`,
       };
     },
     getRandomInt,
@@ -75,8 +75,31 @@ export default {
 </script>
 
 <style scoped>
+
 .blob-canvas {
-  width: 700px;
-  height: 900px;
+    width: 100vw;
+    height: calc(100vw*1.28);
+  }
+
+@media screen and (min-width: 640px) {
+  .blob-canvas {
+    width: 350px;
+    height: 450px;
+  }
 }
+
+@media screen and (min-width: 768px) {
+  .blob-canvas {
+    width: 525px;
+    height: 675px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .blob-canvas {
+    width: 700px;
+    height: 900px;
+  }
+}
+
 </style>

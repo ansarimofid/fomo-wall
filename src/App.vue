@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <div class="mb-10">
-      <h1 class="text-4xl font-bold">F.O.M.O Wall</h1>
+    <div class="py-4 md:py-10">
+      <h1 class="text-4xl font-bold">F.O.M.O. Wall</h1>
+      <p>Unlimited & Unique Background</p>
     </div>
     <div
       v-infinite-scroll="loadMore"
       infinite-scroll-distance="500"
-      class="flex flex-wrap justify-center items-start mx-auto"
+      class="flex flex-wrap justify-center items-start mx-auto -ml-4"
     >
       <blobber :key="i" v-for="i in blobberCount" />
     </div>
@@ -34,7 +35,7 @@ export default {
   },
   data() {
     return {
-      blobberCount: 24,
+      blobberCount: 12,
       busy: false,
     };
   },
@@ -54,6 +55,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
