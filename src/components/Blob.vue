@@ -19,7 +19,6 @@
 
 <script>
 import { generator } from "../util/generator";
-
 import { getRandomInt } from "../util/common.util";
 
 export default {

@@ -1,25 +1,28 @@
 <template>
   <div class="pl-4 mb-2 sm:mb-4">
-    <div
-      class="w-72 h-72 bg-gray-245 blob-canvas mx-auto relative overflow-hidden"
-      :style="containerStyle"
-    >
-      <blob
-        :gradient="gradient"
-        :gradientId="gradientId"
-        :key="i"
-        v-for="i in count"
-      />
-
+    <div class="cursor-pointer" :id="domId" @click="getImage">
       <div
-        :key="i + getRandomInt(13232, 22333)"
-        v-for="i in 4"
-        class="absolute z-10"
-        :style="getCircleStyle()"
+        ref="imgRef"
+        class="w-72 h-72 bg-gray-245 blob-canvas mx-auto relative overflow-hidden"
+        :style="containerStyle"
       >
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <circle fill="white" cx="50" cy="50" r="50" />
-        </svg>
+        <blob
+          :gradient="gradient"
+          :gradientId="gradientId"
+          :key="i"
+          v-for="i in count"
+        />
+
+        <div
+          :key="i + getRandomInt(13232, 22333)"
+          v-for="i in 4"
+          class="absolute z-10"
+          :style="getCircleStyle()"
+        >
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle fill="white" cx="50" cy="50" r="50" />
+          </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -30,6 +33,8 @@ import Blob from "./Blob";
 
 import { getRandomInt } from "../util/common.util";
 import gradients from "../util/gradients";
+import domtoimage from "dom-to-image";
+import { saveAs } from "file-saver";
 
 export default {
   name: "blobber",
@@ -41,6 +46,7 @@ export default {
       gradient: gradients[getRandomInt(0, gradients.length)],
       count: 15,
       gradientId: getRandomInt(100000, 500000),
+      domId: getRandomInt(500000, 800000),
       circleStyle: {
         left: getRandomInt(-20, 100) + "%",
         top: getRandomInt(-20, 100) + "%",
@@ -70,16 +76,33 @@ export default {
       };
     },
     getRandomInt,
+    getImage: function () {
+      let img = document.getElementById(this.domId);
+
+      let childNode = img.childNodes[0];
+
+      let childHeight = childNode.style.height;
+      let childWidth = childNode.style.width;
+
+      childNode.style.width = "1400px";
+      childNode.style.height = "1800px";
+
+      domtoimage.toBlob(img).then((blob) => {
+        childNode.style.width = childWidth;
+        childNode.style.height = childHeight;
+        console.log(blob);
+        saveAs(blob, `wallpaper-${this.domId}`);
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
-
 .blob-canvas {
-    width: 100vw;
-    height: calc(100vw*1.28);
-  }
+  width: 100vw;
+  height: calc(100vw * 1.28);
+}
 
 @media screen and (min-width: 640px) {
   .blob-canvas {
@@ -101,5 +124,4 @@ export default {
     height: 900px;
   }
 }
-
 </style>
