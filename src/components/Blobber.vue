@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      gradient: gradients[getRandomInt(0, gradients.length)],
+      gradient: gradients[getRandomInt(0, gradients.length)].colors,
       count: 15,
       gradientId: getRandomInt(100000, 500000),
       domId: getRandomInt(500000, 800000),
@@ -90,7 +90,6 @@ export default {
       domtoimage.toBlob(img).then((blob) => {
         childNode.style.width = childWidth;
         childNode.style.height = childHeight;
-        console.log(blob);
         saveAs(blob, `wallpaper-${this.domId}`);
       });
     },
@@ -101,7 +100,7 @@ export default {
 <style scoped>
 .blob-canvas {
   width: 100vw;
-  height: calc(100vw * 1.28);
+  height: calc(100vw * 1.778);
 }
 
 @media screen and (min-width: 640px) {
