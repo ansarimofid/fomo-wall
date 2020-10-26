@@ -1,20 +1,13 @@
 <template>
-  <div class="absolute w-full" :style="style">
-    <svg
-      viewBox="0 0 500 500"
-      xmlns="http://www.w3.org/2000/svg"
-      :width="`${getRandomInt(100, 300)}%`"
-      id="blobSvg"
-    >
-      <defs>
-        <linearGradient :id="this.gradientId" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" :style="{ stopColor: this.gradient[0] }" />
-          <stop offset="100%" :style="{ stopColor: this.gradient[1] }" />
-        </linearGradient>
-      </defs>
-      <path :fill="`url(#${this.gradientId})`" :id="blob.id" :d="blob.path" />
-    </svg>
-  </div>
+  <g :width="`${getRandomInt(100, 300)}%`" id="blobSvg" :style="style">
+    <defs>
+      <linearGradient :id="this.gradientId" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" :style="{ stopColor: this.gradient[0] }" />
+        <stop offset="100%" :style="{ stopColor: this.gradient[1] }" />
+      </linearGradient>
+    </defs>
+    <path :fill="`url(#${this.gradientId})`" :id="blob.id" :d="blob.path" />
+  </g>
 </template>
 
 <script>
@@ -30,9 +23,13 @@ export default {
   data() {
     return {
       style: {
-        left: getRandomInt(-20, 100) + "%",
-        top: getRandomInt(-20, 100) + "%",
-        transform: `rotateZ(${getRandomInt(0, 360)}deg)`,
+        // left: getRandomInt(-70, 60) + "%",
+        // top: getRandomInt(-70, 60) + "%",
+        // position:'absolute',
+        transform: `rotate(${getRandomInt(0, 360)}deg) translate(${
+          getRandomInt(-80, 80) + "%"
+        }, ${getRandomInt(-80, 80) + "%"}) scale(${getRandomInt(100, 300)*0.01})`,
+        transformOrigin:'50% 50%'
       },
       blob: {
         edges: "",
@@ -40,6 +37,8 @@ export default {
         path: "",
         id: "",
         size: 500,
+        x: getRandomInt(0, 700),
+        y: getRandomInt(0, 900),
       },
     };
   },

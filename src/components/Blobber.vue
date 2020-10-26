@@ -1,7 +1,9 @@
 <template>
   <div class="pl-4 mb-2 sm:mb-4">
-    <div class="cursor-pointer" :id="domId" @click="getImage">
-      <div
+    <div class="cursor-pointer"  :id="domId" @click="getImage">
+      <svg
+        viewBox="0 0 500 500"
+        xmlns="http://www.w3.org/2000/svg"
         ref="imgRef"
         class="w-72 h-72 bg-gray-245 blob-canvas mx-auto relative overflow-hidden"
         :style="containerStyle"
@@ -12,24 +14,15 @@
           :key="i"
           v-for="i in count"
         />
-
-        <div
-          :key="i + getRandomInt(13232, 22333)"
-          v-for="i in 4"
-          class="absolute z-10"
-          :style="getCircleStyle()"
-        >
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle fill="white" cx="50" cy="50" r="50" />
-          </svg>
-        </div>
-      </div>
+        <dot v-for="i in circleCount" :key="i + getRandomInt(13232, 22333)" />
+      </svg>
     </div>
   </div>
 </template>
 
 <script>
 import Blob from "./Blob";
+import Dot from "./Dot";
 
 import { getRandomInt } from "../util/common.util";
 import gradients from "../util/gradients";
@@ -40,17 +33,17 @@ export default {
   name: "blobber",
   components: {
     Blob,
+    Dot,
   },
   data() {
     return {
       gradient: gradients[getRandomInt(0, gradients.length)].colors,
-      count: 15,
+      count: 10,
+      circleCount:3,
       gradientId: getRandomInt(100000, 500000),
       domId: getRandomInt(500000, 800000),
       circleStyle: {
-        left: getRandomInt(-20, 100) + "%",
-        top: getRandomInt(-20, 100) + "%",
-        transform: `rotateZ(${getRandomInt(0, 360)}deg)`,
+        transform: `rotateZ(${getRandomInt(0, 360)}deg),transform: translate(${getRandomInt(-80, 80) + "%"}, ${getRandomInt(-80, 80) + "%"})`,
       },
     };
   },
@@ -91,6 +84,10 @@ export default {
         childNode.style.width = childWidth;
         childNode.style.height = childHeight;
         saveAs(blob, `wallpaper-${this.domId}`);
+      });
+
+      domtoimage.toSvg(img).then((dataURL) => {
+       console.log(dataURL);
       });
     },
   },
