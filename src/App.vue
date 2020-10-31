@@ -11,7 +11,7 @@
         <h1 class="text-center leading-snug mt-4">
           <span class="text-xl md:text-2xl block">
             Vibe up with amazing
-            <span class="text-primary">unlimited</span> & <span class="text-primary">unque</span> wallpapers.
+            <span class="text-primary">unlimited</span> & <span class="text-primary">unique</span> wallpapers.
           </span>
         </h1>
       </div>
