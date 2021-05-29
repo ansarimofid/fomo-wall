@@ -71,3 +71,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+#blobSvg {
+  filter: blur(15px);
+}
+</style>

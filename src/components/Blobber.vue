@@ -39,7 +39,7 @@ export default {
     return {
       gradient: gradients[getRandomInt(0, gradients.length)].colors,
       count: 10,
-      circleCount:3,
+      circleCount:0,
       gradientId: getRandomInt(100000, 500000),
       domId: getRandomInt(500000, 800000),
       circleStyle: {
